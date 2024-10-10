@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator zod {
+  provider = "zod-prisma-types"
+  output   = "./zod"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  accelerateType    String
+  alternatePosition String
+  club              String
+  createdAt         DateTime @db.Date
+  defending         BigInt
+  dribbling         BigInt
+  futbinId          BigInt
+  futbinPlayerUrl   String
+  height            String
+  imageUrl          String
+  inGameStats       BigInt
+  league            String
+  name              String
+  nation            String
+  pace              BigInt
+  passing           BigInt
+  physicality       BigInt
+  playerType        String
+  playstylePlus     String
+  popularity        BigInt
+  position          String
+  positionAffinity  String?
+  price             BigInt
+  priceTrend        String
+  rating            BigInt
+  shooting          BigInt
+  skillMoves        BigInt
+  updatedAt         DateTime @db.Date
+  weakFoot          BigInt
+}
+
+model ScrapedPage {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime @db.Date
+  pageNumber BigInt
+  type       String
+  updatedAt  DateTime @db.Date
+  url        String
+}
