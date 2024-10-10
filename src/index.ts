@@ -1,11 +1,14 @@
 import { PrismaClient } from '@prisma/client';
 import express, { RequestHandler } from 'express';
 
+import { loadConfig } from './config/config';
 import { errorMiddleware } from './middlewares/errorMiddleware';
 import { setContextMiddleware } from './middlewares/setContextMiddleware';
 import { createLogger } from './shared/customLogger';
 import { createDataAccessObjects } from './daos';
 import { v1 } from './controllers/v1';
+
+const config = loadConfig();
 
 export const createApp = async () => {
   const app = express();
@@ -25,8 +28,8 @@ export const createApp = async () => {
 
 createApp()
   .then((app) => {
-    app.listen(3000, () => {
-      console.log('Server is running on port 3000');
+    app.listen(config.application.port, () => {
+      console.log(`Server is running in ${config.application.env} mode on port ${config.application.port}`);
     });
   })
   .catch((error) => {
